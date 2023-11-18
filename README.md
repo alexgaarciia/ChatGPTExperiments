@@ -1,4 +1,4 @@
-# ChatGPTExperiments
+# LLMExperiments
 ## Large Langue Models
 LLMs are a subset of machine learning models designed to understand and generate human-like text based on the data they have been trained on. Here are some characteristics:
 
