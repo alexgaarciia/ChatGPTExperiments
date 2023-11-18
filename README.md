@@ -1,4 +1,8 @@
 # LLMExperiments
+## Goal of the repository
+The main goal of this repository is to challenge different LLMs or, in other words, trying to discover the flaws of each of them. In particular we will be testing ChatGPT, Bard, Mistral and LLaMA. In order to do this properly, prompt engineering must be applied correctly to each of them (continue reading for further information).
+
+
 ## Large Langue Models
 LLMs are a subset of machine learning models designed to understand and generate human-like text based on the data they have been trained on. Here are some characteristics:
 
@@ -22,3 +26,8 @@ One of the first tasks that we want to focus on is trying to understand how can 
 3. Optimization:
 - Tips on optimizing the signal quality, reducing bit error rates and maximizing the available bandwidth.
 
+
+## Correct prompting
+In order to test properly how a LLM performs, it is a must to know how to correctly prompt it. Prompting is any form of text, question, information, or coding that communicates to AI what response you are looking for. Each LLM has its own way of communicating, and we, as users, must be able to learn this. 
+
+  
