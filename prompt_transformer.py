@@ -1,69 +1,54 @@
+# Import tkinter library (standard GUI toolkit)
 import tkinter as tk
 
 
 class PromptSelector:
-    def __init__(self, llm_type):
-        self.llm_type = llm_type
-        self.training_data = {}
+    def __init__(self):
+        self.llm_type = ""
 
-    def add_training_example(self, prompt, expected_result):
-        self.training_data[prompt] = expected_result
+        # Create the main window of the GUI:
+        self.tkwindow = tk.Tk()
 
-    def evaluate_prompt(self, prompt):
-        return len(prompt)
+        # Include a dropdown to select the model:
+        models = ["ChatGPT", "Bard", "Mistral", "LLaMA"]
+        self.model_var = tk.StringVar(self.tkwindow)
+        self.model_var.set(models[0])
+        self.model_dropdown = tk.OptionMenu(self.tkwindow, self.model_var, *models)
+        self.model_dropdown.pack(pady=10)
 
-    def select_best_prompt(self):
-        best_prompt = None
-        best_score = float('-inf')
+        # Prompt input:
+        self.prompt_entry = tk.Entry(self.tkwindow, width=50)
+        self.prompt_entry.pack(pady=5)
 
-        for prompt, expected_result in self.training_data.items():
-            score = self.evaluate_prompt(prompt)
-            if score > best_score:
-                best_score = score
-                best_prompt = prompt
-
-        return best_prompt
-
-class PromptSelectorGUI:
-    def __init__(self, llm_type):
-        self.llm_type = llm_type
-        self.prompt_selector = PromptSelector(llm_type)
-
-        # Configuración de la interfaz de usuario
-        self.root = tk.Tk()
-        self.root.title("Selector de Prompt")
-
-        # Entrada para el nuevo prompt
-        self.prompt_entry = tk.Entry(self.root, width=50)
-        self.prompt_entry.pack(pady=10)
-
-        # Botón para agregar un nuevo ejemplo de entrenamiento
-        self.add_example_button = tk.Button(self.root, text="Agregar Ejemplo", command=self.add_training_example)
-        self.add_example_button.pack(pady=5)
-
-        # Botón para seleccionar el mejor prompt
-        self.select_prompt_button = tk.Button(self.root, text="Seleccionar Mejor Prompt", command=self.select_best_prompt)
+        # Button to obtain the best prompt for the chosen model:
+        self.select_prompt_button = tk.Button(self.tkwindow, text="Obtain best prompt", command=self.select_best_prompt)
         self.select_prompt_button.pack(pady=10)
 
-        # Etiqueta para mostrar el mejor prompt
-        self.best_prompt_label = tk.Label(self.root, text="")
+        # Label for showing the best prompt:
+        self.best_prompt_label = tk.Label(self.tkwindow, text="")
         self.best_prompt_label.pack(pady=10)
 
-    def add_training_example(self):
-        prompt = self.prompt_entry.get()
-        expected_result = "Resultado esperado"
-        self.prompt_selector.add_training_example(prompt, expected_result)
-        self.prompt_entry.delete(0, tk.END)
-
     def select_best_prompt(self):
-        best_prompt = self.prompt_selector.select_best_prompt()
-        self.best_prompt_label.config(text=f"Mejor prompt para {self.llm_type}: {best_prompt}")
+        """This is a function that returns the best prompt"""
+        prompt = self.prompt_entry.get()
+        llm_type = self.model_var.get()
+        formatted_prompt = self.format_prompt(llm_type, prompt)
+        self.best_prompt_label.config(text=f"Best prompt for {llm_type}:\n{formatted_prompt}")
+
+    def format_prompt(self, llm_type, prompt):
+        """This is a function that chooses the best format depending on the llm_type"""
+        if llm_type == "ChatGPT":
+            return f"ChatGPT Prompt: ### {prompt} ###"
+        elif llm_type == "Bard":
+            return f"Bard Prompt: ### {prompt} ###"
+        elif llm_type == "Mistral":
+            return f"Mistral Prompt: [INST] {prompt} [/INST]"
+        elif llm_type == "LLaMA":
+            return f"LLaMA Prompt: [INST] {prompt} [/INST]"
 
     def run(self):
-        self.root.mainloop()
+        self.tkwindow.mainloop()
 
 
-# Ejemplo de Uso
-llm_type = "GPT-3"
-gui = PromptSelectorGUI(llm_type)
-gui.run()
+example = PromptSelector()
+example.run()
