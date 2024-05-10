@@ -14,3 +14,6 @@ LLMs are a subset of machine learning models designed to understand and generate
 
 ## Correct prompting
 In order to test properly how a LLM performs, it is a must to know how to correctly prompt it. Prompting is any form of text, question, information, or coding that communicates to AI what response you are looking for. Each LLM has its own way of communicating, and we, as users, must be able to learn this. 
+
+## Files in the repository
+
